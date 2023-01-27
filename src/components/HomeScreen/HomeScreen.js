@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
-import Task from "../Task/Task";
+import { Task } from "../";
 
-export default function HomeScreen() {
+export const HomeScreen = () => {
     return (
         <View>
-        <Text>HomeScreen</Text>
-        <Task name="Tâche 1" />
-        <Task name="Tâche 2" />
-        <Task name="Tâche 3" />
+            <Task name="Tâche 1" />
+            <Task name="Tâche 2" />
+            <Task name="Tâche 3" />
         </View>
     );
 }

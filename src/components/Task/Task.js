@@ -2,7 +2,7 @@ import { CheckBox } from "@rneui/themed";
 import { useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
-export default function Task(props) {
+export const Task = (props) => {
 
     const [checked, setChecked] = useState(false);
 
