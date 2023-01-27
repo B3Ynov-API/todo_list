@@ -23,7 +23,6 @@ export const Task = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
