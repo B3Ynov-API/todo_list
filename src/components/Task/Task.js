@@ -1,22 +1,35 @@
 import { CheckBox } from "@rneui/themed";
 import { useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const Task = (props) => {
+export const Task = ({ task }) => {
 
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(task.state);
+
+    const handlePress = async () => {
+        setChecked(!checked);
+
+        try {
+            const updatedTask = task;
+            updatedTask.state = !checked;
+            await AsyncStorage.setItem(`task-${task.id}`, JSON.stringify(updatedTask));
+        } catch (e) {
+            console.clear();
+            console.log(e);
+        }
+    }
 
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {
                 alert("Task pressed");
             }}>
-                <Text>{props.name ? props.name : "Tâche"}</Text>
+                <Text>{task.name ? task.name : "Tâche"}</Text>
             </TouchableOpacity>
-            <CheckBox checked={checked} onPress={() => {
-                setChecked(!checked);
-            }}>
+            <CheckBox checked={checked} onPress={handlePress}>
             </CheckBox>
+
         </View>
     );
 }
