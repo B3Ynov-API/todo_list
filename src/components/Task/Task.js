@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const Task = ({ task }) => {
+export const Task = ({ task, navigation }) => {
 
     const [checked, setChecked] = useState(task.state);
 
@@ -23,7 +23,7 @@ export const Task = ({ task }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {
-                alert("Task pressed");
+                navigation.navigate("Task", { task: task });
             }}>
                 <Text>{task.name ? task.name : "Tâche"}</Text>
             </TouchableOpacity>

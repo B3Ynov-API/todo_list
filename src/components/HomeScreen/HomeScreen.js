@@ -48,11 +48,9 @@ export const HomeScreen = ({ navigation, route }) => {
                 tasks.length === 0 ?
                     <Text>Aucune tâche</Text> :
                     tasksIds.map((id, index) => (
-                        <Task key={id} task={tasks[index]} />
+                        <Task key={id} task={tasks[index]} navigation={navigation} />
                     ))
             }
-            {console.log(tasks)}
-            {console.log(tasksIds)}
         </View>
     );
 }
