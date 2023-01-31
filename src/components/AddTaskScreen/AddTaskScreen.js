@@ -15,12 +15,12 @@ export const AddTaskScreen = ({ navigation, route }) => {
             const newId = route.params.tasks.length > 0 ? route.params.tasks[route.params.tasks.length - 1].id + 1 : 0;
             const updatedIds = [...route.params.tasksIds, newId];
 
-            const newTask = [...route.params.tasks, {
+            const newTask = {
                 id: newId,
                 name: name,
                 details: details,
                 state: false,
-            }];
+            };
 
             await AsyncStorage.setItem('tasksIds', JSON.stringify(updatedIds));
             await AsyncStorage.setItem(`task-${newId}`, JSON.stringify(newTask));

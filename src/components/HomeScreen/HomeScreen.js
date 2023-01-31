@@ -14,20 +14,30 @@ export const HomeScreen = ({ navigation, route }) => {
             try {
                 const jsonValue = await AsyncStorage.getItem('tasksIds')
                 jsonValue != null ? setTasksIds(JSON.parse(jsonValue)) : null;
-
-                if (jsonValue != null) {
-                    JSON.parse(jsonValue).map(async (id) => {
-                        const task = await AsyncStorage.getItem(`task-${id}`);
-                        const newTasks = [...tasks, JSON.parse(task)];
-                        setTasks(newTasks);
-                    })
-                }
             } catch (e) {
                 console.log(e);
             }
         }
         fetchData();
     }, [navigation, route])
+
+    //Insère les tâches dans le state
+    React.useEffect(() => {
+        try {
+            if (tasksIds.length > 0) {
+                const newTasks = [];
+                tasksIds.forEach(async (id) => {
+                    const jsonValue = await AsyncStorage.getItem(`task-${id}`)
+                    newTasks.push(JSON.parse(jsonValue));
+                    if(newTasks.length === tasksIds.length)
+                        setTasks(newTasks);
+                })
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }, [tasksIds])
 
     // Ajoute un bouton à la barre de navigation
     React.useEffect(() => {
@@ -40,15 +50,18 @@ export const HomeScreen = ({ navigation, route }) => {
                 </TouchableOpacity>
             )
         });
-    }, [navigation, route])
+    }, [navigation, route, tasksIds, tasks])
+
+    // console.log(tasks);
+    // console.log(tasksIds);
 
     return (
         <View style={styles.container}>
             {
                 tasks.length === 0 ?
                     <Text>Aucune tâche</Text> :
-                    tasksIds.map((id, index) => (
-                        <Task key={id} task={tasks[index]} navigation={navigation} />
+                    tasks.map((task) => (
+                        <Task key={task.id} task={task} navigation={navigation} />
                     ))
             }
         </View>
