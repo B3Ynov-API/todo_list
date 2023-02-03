@@ -3,3 +3,4 @@ export * from './Task';
 export * from './AddTaskScreen';
 export * from './TaskScreen';
 export * from './HomeStackScreen';
+export * from './DailyStackScreen';
