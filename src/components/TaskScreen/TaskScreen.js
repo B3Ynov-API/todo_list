@@ -13,11 +13,21 @@ export const TaskScreen = ({ navigation, route }) => {
 
     const deleteTask = async () => {
         try {
-            await AsyncStorage.removeItem(`task-${task.id}`);
-            const ids = JSON.parse(await AsyncStorage.getItem('tasksIds'));
-            const newIds = ids.filter(id => id !== task.id);
-            await AsyncStorage.setItem('tasksIds', JSON.stringify(newIds));
-            navigation.navigate('Home', { 'task.id' : task });
+            if (task.doneDate) {
+                await AsyncStorage.removeItem(`dailyTask-${task.id}`);
+                const ids = JSON.parse(await AsyncStorage.getItem('dailyTasksIds'));
+                const newIds = ids.filter(id => id !== task.id);
+                await AsyncStorage.setItem('dailyTasksIds', JSON.stringify(newIds));
+                navigation.navigate('Daily', { 'task.id': task });
+            }
+            else {
+                await AsyncStorage.removeItem(`task-${task.id}`);
+                const ids = JSON.parse(await AsyncStorage.getItem('tasksIds'));
+                const newIds = ids.filter(id => id !== task.id);
+                await AsyncStorage.setItem('tasksIds', JSON.stringify(newIds));
+                navigation.navigate('Home', { 'task.id': task });
+            }
+
         } catch (e) {
             console.clear();
             console.log(e);
@@ -27,7 +37,7 @@ export const TaskScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <Text>{ task.details }</Text>
+            <Text>{task.details}</Text>
             <Button title="Supprimer la tâche" onPress={deleteTask}></Button>
         </View>
     );

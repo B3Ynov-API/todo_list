@@ -13,7 +13,13 @@ export const Task = ({ task, navigation }) => {
         try {
             const updatedTask = task;
             updatedTask.state = !checked;
-            await AsyncStorage.setItem(`task-${task.id}`, JSON.stringify(updatedTask));
+            if (task.doneDate) {
+                updatedTask.doneDate = new Date().toJSON().slice(0, 10);
+                await AsyncStorage.setItem(`dailyTask-${task.id}`, JSON.stringify(updatedTask));
+            }
+            else {
+                await AsyncStorage.setItem(`task-${task.id}`, JSON.stringify(updatedTask));
+            }
         } catch (e) {
             console.clear();
             console.log(e);
