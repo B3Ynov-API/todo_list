@@ -31,7 +31,7 @@ export const Task = ({ task, navigation }) => {
             <TouchableOpacity onPress={() => {
                 navigation.navigate("Task", { task: task });
             }}>
-                <Text>{task.name ? task.name : "Tâche"}</Text>
+                <Text style={styles.text}>{task.name ? task.name : "Tâche"}</Text>
             </TouchableOpacity>
             <CheckBox checked={checked} onPress={handlePress}>
             </CheckBox>
@@ -42,8 +42,23 @@ export const Task = ({ task, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
+        borderRadius: 10,
+        shadowOpacity: 0.2,
+        shadowRadius: 10,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        backgroundColor: "white",
+        padding: 10,
+        margin: 10,
+        elevation: 5,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
+
+    text: {
+        fontSize: 20,
+    }
 });

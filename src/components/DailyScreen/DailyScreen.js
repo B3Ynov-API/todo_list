@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Task } from "../";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -61,7 +61,7 @@ export const DailyScreen = ({ navigation, route }) => {
     // console.log(tasksIds);
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {
                 tasks.length === 0 ?
                     <Text>Aucune tâche journalière</Text> :
@@ -69,15 +69,13 @@ export const DailyScreen = ({ navigation, route }) => {
                         <Task  key={task.id} type="daily" task={task} navigation={navigation} />
                     ))
             }
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#fff',
     },
 
