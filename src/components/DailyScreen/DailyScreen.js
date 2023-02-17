@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { Task } from "../";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//page qui affiche les tâches journalières
 export const DailyScreen = ({ navigation, route }) => {
 
     const [tasksIds, setTasksIds] = React.useState([]);
@@ -10,6 +11,7 @@ export const DailyScreen = ({ navigation, route }) => {
 
     // Récupère les tâches stockées dans le storage quand la page est chargée ou quand navigation ou route change (passer un paramètre en appelant la page comme dans AddTaskScreen afin de update)
     React.useEffect(() => {
+        //fetchData est une fonction asynchrone qui récupère les tâches stockées dans le storage
         async function fetchData() {
             try {
                 const jsonValue = await AsyncStorage.getItem('dailyTasksIds')
@@ -29,6 +31,8 @@ export const DailyScreen = ({ navigation, route }) => {
                 tasksIds.forEach(async (id) => {
                     const jsonValue = await AsyncStorage.getItem(`dailyTask-${id}`);
                     const task = JSON.parse(jsonValue);
+                    //on récupère la date de la tâche  la dernière fois qu'elle a été check et on la compare à la date d'aujourd'hui
+                    // Si la tâche n'a pas été check aujourd'hui, on la remet à false(on la décoche)
                     if (task.doneDate !== new Date().toJSON().slice(0, 10)) {
                         task.state = false;
                         await AsyncStorage.setItem(`dailyTask-${id}`, JSON.stringify(task));

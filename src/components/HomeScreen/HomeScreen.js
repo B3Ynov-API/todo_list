@@ -26,6 +26,7 @@ export const HomeScreen = ({ navigation, route }) => {
         try {
             if (tasksIds.length > 0) {
                 const newTasks = [];
+                //récupération des tasks pour chaque id
                 tasksIds.forEach(async (id) => {
                     const jsonValue = await AsyncStorage.getItem(`task-${id}`)
                     newTasks.push(JSON.parse(jsonValue));
@@ -39,7 +40,7 @@ export const HomeScreen = ({ navigation, route }) => {
         }
     }, [tasksIds])
 
-    // Ajoute un bouton à la barre de navigation
+    // Ajoute un bouton pour rajouter une tache en haut à droite
     React.useEffect(() => {
         navigation.setOptions({
             headerRight: () => (

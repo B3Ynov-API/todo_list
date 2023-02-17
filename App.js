@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
-
+//crée la navigation entre les deux stacks
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -14,9 +14,9 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator screenOptions={({ route }) => ({
         headerShown: false,
+        //permet de présenter les pages avec des icons
         tabBarIcon: () => {
           let icon;
-
           if (route.name === 'HomeStack') {
             icon = faHouse;
           } else if (route.name === 'DailyStack') {

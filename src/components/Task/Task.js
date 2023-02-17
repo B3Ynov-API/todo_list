@@ -5,18 +5,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Task = ({ task, navigation }) => {
 
+    // input du check de la task
     const [checked, setChecked] = useState(task.state);
 
+    // fonction qui gère le changement d'état de la checkbox quand elle est clickée
     const handlePress = async () => {
         setChecked(!checked);
 
         try {
             const updatedTask = task;
             updatedTask.state = !checked;
+            //Si la tâche journalière a une date on sait que c'est une tâche journalière, donc on update sa date
             if (task.doneDate) {
                 updatedTask.doneDate = new Date().toJSON().slice(0, 10);
                 await AsyncStorage.setItem(`dailyTask-${task.id}`, JSON.stringify(updatedTask));
             }
+            //sinon on update la tâche normal
             else {
                 await AsyncStorage.setItem(`task-${task.id}`, JSON.stringify(updatedTask));
             }

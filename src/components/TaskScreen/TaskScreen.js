@@ -7,12 +7,16 @@ export const TaskScreen = ({ navigation, route }) => {
 
     const { task } = route.params;
 
+    //change le titre de la page en fonction de la tâche
     React.useEffect(() => {
+        
         navigation.setOptions({ title: task.name });
     })
 
+    //supprime la task de la liste des tâches
     const deleteTask = async () => {
         try {
+            //si la tâche est une tâche quotidienne, on la supprime de la liste des tâches quotidiennes
             if (task.doneDate) {
                 await AsyncStorage.removeItem(`dailyTask-${task.id}`);
                 const ids = JSON.parse(await AsyncStorage.getItem('dailyTasksIds'));
@@ -20,6 +24,7 @@ export const TaskScreen = ({ navigation, route }) => {
                 await AsyncStorage.setItem('dailyTasksIds', JSON.stringify(newIds));
                 navigation.navigate('Daily', { 'task.id': task });
             }
+            //sinon on sait que c'est une tâche normale et on supprime la tâche normale
             else {
                 await AsyncStorage.removeItem(`task-${task.id}`);
                 const ids = JSON.parse(await AsyncStorage.getItem('tasksIds'));

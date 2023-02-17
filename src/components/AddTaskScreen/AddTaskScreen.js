@@ -4,26 +4,30 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+//page d'ajout de tâche tâche générales
 export const AddTaskScreen = ({ navigation, route }) => {
 
     const [name, setName] = React.useState("");
     const [details, setDetails] = React.useState("");
     const [error, setError] = React.useState("");
 
+    //sauvegarde la tâche dans le storage
     const save = async () => {
         try {
             const newId = route.params.tasks.length > 0 ? route.params.tasks[route.params.tasks.length - 1].id + 1 : 0;
             const updatedIds = [...route.params.tasksIds, newId];
 
+            //on crée la nouvelle tâche avec les infos entrées dans les inputs
             const newTask = {
                 id: newId,
                 name: name,
                 details: details,
                 state: false,
             };
-
+            //sauvegarde la tâche dans le storage en json
             await AsyncStorage.setItem('tasksIds', JSON.stringify(updatedIds));
             await AsyncStorage.setItem(`task-${newId}`, JSON.stringify(newTask));
+            //une fois que la tâche est créee, on navigue vers la page Home qui est la main page de l'app avec les tâches
             navigation.navigate("Home", { ids : updatedIds });
 
         } catch (e) {
