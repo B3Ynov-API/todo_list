@@ -44,8 +44,6 @@ export const DailyScreen = ({ navigation, route }) => {
         }
     }, [tasksIds])
 
-    console.log(tasks);
-
     // Ajoute un bouton à la barre de navigation
     React.useEffect(() => {
         navigation.setOptions({
