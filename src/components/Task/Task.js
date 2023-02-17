@@ -35,7 +35,7 @@ export const Task = ({ task, navigation }) => {
             <TouchableOpacity onPress={() => {
                 navigation.navigate("Task", { task: task });
             }}>
-                <Text style={styles.text}>{task.name ? task.name : "Tâche"}</Text>
+                <Text style={task.date && task.date === new Date().toJSON().slice(0, 10) ? [styles.text, styles.important] : styles.text }>{task.name ? task.name : "Tâche"}</Text>
             </TouchableOpacity>
             <CheckBox checked={checked} onPress={handlePress}>
             </CheckBox>
@@ -64,5 +64,8 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 20,
-    }
+    },
+    important: {
+        color: "red",
+    },
 });

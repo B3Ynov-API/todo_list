@@ -39,11 +39,13 @@ export const TaskScreen = ({ navigation, route }) => {
         }
     }
 
-
+console.log(task);
     return (
         <View style={styles.container}>
             <Text>{task.details}</Text>
+            {task.date ? <Text>Date de fin: {new Date(task.date).getDate() + "/" + (new Date(task.date).getMonth() + 1) + "/" + new Date(task.date).getFullYear()}</Text> : null}
             <Button title="Supprimer la tâche" onPress={deleteTask}></Button>
+            
         </View>
     );
 }
