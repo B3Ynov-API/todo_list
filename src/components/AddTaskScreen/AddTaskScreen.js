@@ -35,15 +35,15 @@ export const AddTaskScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <Text>Add task screen</Text>
-            <TextInput onChangeText={setName} value={name} style={styles.input} label="Nom de la tâche" />
-            <TextInput onChangeText={setDetails} value={details} style={styles.input} label="Détails de la tâche" />
-            <Button title="Ajouter" onPress={() => {
+            <Text style={[styles.margin, styles.text]}>Add task screen</Text>
+            <TextInput onChangeText={setName} value={name} style={[styles.input, styles.margin]} label="Nom de la tâche" />
+            <TextInput onChangeText={setDetails} value={details} style={[styles.input, styles.margin]} label="Détails de la tâche" />
+            <Button style={styles.margin} title="Ajouter" onPress={() => {
                 save();
             }}></Button>
 
             {/* Affiche les erreurs s'il y en a */}
-            {error ? <Text>{error.toString()}</Text> : null}
+            {error ? <Text style={styles.margin}>{error.toString()}</Text> : null}
 
         </View>
     );
@@ -57,5 +57,11 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 200,
-    }
+    },
+    text: {
+        fontSize: 20,
+    },
+    margin: {
+        margin: 10,
+    },
 })
